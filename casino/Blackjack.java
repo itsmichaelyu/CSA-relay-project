@@ -147,7 +147,16 @@ public class Blackjack extends Casino{
     return winners;
   }
 
-  public static void playBlackjack() {
+  /**
+   *
+   * @return winner
+   * -1 = UH OH
+   * 0 = dealer
+   * 1 = player 1
+   * etc
+   */
+  public static int playBlackjack() {
+    int winner = -1;
     setGamble();
     Blackjack blackjack = new Blackjack(1);
 
@@ -177,6 +186,7 @@ public class Blackjack extends Casino{
     }
     if (blackjack.getPlayerBust(0)) {
       System.out.println("YOU BUST");
+      winner = 0;
     }
     else {
       while (!blackjack.getDealerBust() && blackjack.getDealerScore() < 17) {
@@ -187,17 +197,21 @@ public class Blackjack extends Casino{
         for (int i : blackjack.getWinner()) {
           if (i == 0) {
             System.out.println("Dealer WINS");
+            winner = 0;
           } else {
             System.out.println("Player " + i + " WINS");
+            winner = 1;
           }
         }
       }
     }
     if (blackjack.getDealerBust()) {System.out.println("");
       System.out.println("DEALER BUST");
+      winner = 1;
     }
     blackjack.printDealerCards();
     blackjack.printPlayerCards(0);
+    return winner;
   }
 
 }

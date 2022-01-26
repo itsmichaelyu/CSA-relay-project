@@ -9,7 +9,9 @@ import java.util.Scanner;
 //Could you add some comments as you know a lot more about java than I do (so just to help clarify some of the code)
 //I just added a tiny bit of stuff (not important) that helps it be a little more user-friendly
 class Main {
-  public static void main(String[] args) {    
-    Blackjack.playBlackjack();
+  public static void main(String[] args) {
+    while (!Casino.isInDebt()) {
+      Casino.gameChooser();
+    }
   }
 }
