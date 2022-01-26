@@ -10,6 +10,6 @@ import java.util.Scanner;
 //I just added a tiny bit of stuff (not important) that helps it be a little more user-friendly
 class Main {
   public static void main(String[] args) {    
-    Casino.playBlackjack();
+    Blackjack.playBlackjack();
   }
 }
