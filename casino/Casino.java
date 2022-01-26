@@ -15,7 +15,7 @@ public class Casino {
     gamble = scan.nextDouble();
 
   while (gamble > money || gamble < 0) {
-      System.out.println("How much money would you like to gamble?");
+      System.out.println("Please choose an amount between $0 and $100");
       gamble = scan.nextDouble();
     }
   }
@@ -37,12 +37,12 @@ public class Casino {
     while (!blackjack.getPlayerBust(0)) {
       String hit = "";
 
-      while (!hit.equals("HIT") && !hit.equals("STAND")) {
+      while (!hit.equals("HIT") && !hit.equals("hit") && !hit.equals("STAND")&& !hit.equals("stand")) {
         System.out.println("Would you like to HIT or STAND");
         hit = scan.next();
       }
 
-      if (hit.equals("HIT")) {
+      if (hit.equals("HIT") || hit.equals("hit")) {
         blackjack.hit(0);
         System.out.println("You got: ");
         for (Blackjack.Cards i : blackjack.getPlayerCards(0)) {
