@@ -2,7 +2,7 @@ package casino;
 import java.util.ArrayList;
 
 public class Blackjack {
-    private enum Cards {
+    public enum Cards {
         ACE(11), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(10), QUEEN(10), KING(10);
         private int value;
         private Cards(int value) {
@@ -21,10 +21,17 @@ public class Blackjack {
   private int players;
 
 
-    public Blackjack(int players) {
-        this.players = players;
-        for (int i = 0; i < players; i++)
-            allPlayerCards.add(playerCards);
+  public Blackjack(int players) {
+    this.players = players;
+    for (int i = 0; i < players; i++){
+        allPlayerCards.add(playerCards);
+    }
+    dealer();
+    dealer();
+    for (int i = 0; i < players; i++) {
+      hit(i);
+      hit(i);
+    }
   }
 
   public void reset() {
@@ -32,12 +39,20 @@ public class Blackjack {
     playerCards.clear();
     }
 
-    public void dealer() {
-        houseCards.add(cards[(int)(Math.random()*(cards.length+1))]);
-    }
+  public void dealer() {
+    houseCards.add(cards[(int)(Math.random()*(cards.length+1))]);
+  }
 
-  public void hit() {
-    playerCards.add(cards[(int)(Math.random()*(cards.length+1))]);
+  public void hit(int playerNum) {
+    allPlayerCards.get(playerNum).add(cards[(int)(Math.random()*(cards.length+1))]);
+  }
+
+  public ArrayList<Cards> getPlayerCards(int playerNum) {
+    return allPlayerCards.get(playerNum);
+  }
+
+  public ArrayList<Cards> getHouseCards() {
+    return houseCards;
   }
 
   public int getHouseScore() {
@@ -56,5 +71,49 @@ public class Blackjack {
     }
     return sum;
     }
+
+  public boolean getPlayerBust(int playerNum) {
+    return getPlayerScore(playerNum) > 21;
+  }
+
+  public boolean getHouseBust() {
+    return getHouseScore() > 21;
+  }
+
+  /**
+  * returns list of all winner player numbers
+  * 0 = house
+  * 1.. = player 1...
+  **/
+  public ArrayList<Integer> getWinner() {
+    /**
+    * -1 if bust
+    * else it will be their val
+    **/
+    ArrayList<Integer> playerVals = new ArrayList<Integer>();   
+    for (int i = 0; i < allPlayerCards.size(); i++) {
+      if (!getPlayerBust(i)) {
+        playerVals.add(getPlayerScore(i));
+      }
+      else {
+        playerVals.add(-1);
+      }
+    }
+    int closestVal = 21;
+    ArrayList<Integer> winners = new ArrayList<Integer>();  
+    for (int i = 0; i < playerVals.size(); i++) {
+      if (21 - playerVals.get(i) < closestVal) {
+        closestVal = 21 - playerVals.get(i);
+        if (21 - playerVals.get(i) < winners.get(i)) {
+          winners.remove(i);  
+        }
+        winners.add(i+1);
+      }
+      else if (21 - playerVals.get(i) == closestVal) {
+        winners.add(i+1);
+      }
+    }
+    return winners;
+  }
 
 }
