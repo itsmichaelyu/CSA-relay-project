@@ -11,10 +11,12 @@ public class Casino {
 
   private static Scanner scan = new Scanner(System.in);
 
+//  checks if you are in debt
   public static boolean isInDebt() {
     return money <= 0;
   }
 
+//  sets the gamble
   public static void setGamble() {
     System.out.println("You have $" + money);
 
@@ -27,6 +29,7 @@ public class Casino {
     }
   }
 
+//  allows the player to select the game
   public static void gameChooser() {
     String game = "";
     boolean status = false;
@@ -44,10 +47,14 @@ public class Casino {
       }
     }
     if (game.equals("blackjack")) {
-      if (Blackjack.playBlackjack() == 0) {
+      int num = Blackjack.playBlackjack();
+      if (num == 0) {
+        money = money;
+      }
+      else if (num == 1) {
         money -= gamble;
       }
-      else if (Blackjack.playBlackjack() == 1) {
+      else if (num == 2) {
         money += gamble;
       }
       else {
