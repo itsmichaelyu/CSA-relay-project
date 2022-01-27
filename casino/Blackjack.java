@@ -142,7 +142,7 @@ public class Blackjack extends Casino{
     for (int i = 0; i < playerVals.size(); i++) {
       if (21 - playerVals.get(i) < closestVal) {
         closestVal = 21 - playerVals.get(i);
-        try {
+        try { //what are the try and catch commands
           if (playerVals.get(i) > playerVals.get(winners.get(i-1))) {
             winners.remove(i-1);
           }
