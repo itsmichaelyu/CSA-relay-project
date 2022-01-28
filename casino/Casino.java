@@ -48,9 +48,9 @@ public class Casino {
     }
     if (game.equals("blackjack")) {
       while (true) {
-        System.out.println("Enter nothing to continue or type STOP to stop");
+        System.out.println("Enter anything to continue or type STOP to stop");
         String word = scan.next();
-        if (word.equals("")) {
+        if (!word.toLowerCase().equals("stop")) {
           int num = Blackjack.playBlackjack();
           if (num == 0) {
             money = money;
