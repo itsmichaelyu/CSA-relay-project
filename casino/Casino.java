@@ -3,11 +3,11 @@ package casino;
 import java.util.Scanner;
 
 public class Casino {
-  public static double money = 100;
-  public static double gamble = 0;
+  private static long money = 100;
+  private static long gamble = 0;
 
 //  list of games
-  public static String[] games = {"blackjack"};
+  private static String[] games = {"blackjack", "slot"};
 
   private static Scanner scan = new Scanner(System.in);
 
@@ -17,15 +17,15 @@ public class Casino {
   }
 
 //  sets the gamble
-  public static void setGamble() {
+  protected static void setGamble() {
     System.out.println("You have $" + money);
 
     System.out.println("How much money would you like to gamble?");
-    gamble = scan.nextDouble();
+    gamble = scan.nextLong();
 
   while (gamble > money || gamble < 0) {
       System.out.println("Please choose an amount between $0 and $100");
-      gamble = scan.nextDouble();
+      gamble = scan.nextLong();
     }
   }
 
@@ -47,19 +47,31 @@ public class Casino {
       }
     }
     if (game.equals("blackjack")) {
-      int num = Blackjack.playBlackjack();
-      if (num == 0) {
-        money = money;
+      while (true) {
+        System.out.println("Enter nothing to continue or type STOP to stop");
+        String word = scan.next();
+        if (word.equals("")) {
+          int num = Blackjack.playBlackjack();
+          if (num == 0) {
+            money = money;
+          }
+          else if (num == 1) {
+            money -= gamble;
+          }
+          else if (num == 2) {
+            money += gamble;
+          }
+          else {
+            System.out.println("ERROR");
+          }
+        }
+        else {
+          break;
+        }
       }
-      else if (num == 1) {
-        money -= gamble;
-      }
-      else if (num == 2) {
-        money += gamble;
-      }
-      else {
-        System.out.println("Error");
-      }
+    }
+    else if (game.equals("slot")) {
+      String text = scan.next();
     }
 
   }

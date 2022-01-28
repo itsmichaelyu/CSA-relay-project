@@ -10,9 +10,12 @@ import java.util.Scanner;
 
 class Main {
   public static void main(String[] args) {
-    while (!Casino.isInDebt()) {
-      Casino.gameChooser();
-    }
-    System.out.println("You are broke!");
+  //   while (!Casino.isInDebt()) {
+  //     Casino.gameChooser();
+  //   }
+  //   System.out.println("You are broke!");
+    SlotMachine slot = new SlotMachine();
+    slot.spin();
+    slot.draw();
   }
 }
