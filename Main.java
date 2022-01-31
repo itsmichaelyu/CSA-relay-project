@@ -11,16 +11,9 @@ import java.util.Scanner;
 // replit is weird and its how it complies java to run it
 class Main {
   public static void main(String[] args) {
-    // while (!Casino.isInDebt()) {
-    //   Casino.gameChooser();
-    // }
-    // System.out.println("You are broke!");
-    SlotMachine slot = new SlotMachine();
-    slot.spin();
-    slot.draw();
-    int score = slot.score();
-    System.out.println(score);
-    System.out.println(slot.money(score));
-    //System.out.println(slot.money(slot.score()));
+     while (!Casino.isInDebt()) {
+       Casino.gameChooser();
+     }
+     System.out.println("You got kicked out of the casino for being broke!");
   }
 }

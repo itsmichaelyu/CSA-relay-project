@@ -3,7 +3,7 @@ package casino;
 import java.util.Scanner;
 
 public class Casino {
-  private static long money = 100;
+  protected static long money = 100;
   private static long gamble = 0;
 
 //  list of games
@@ -42,15 +42,18 @@ public class Casino {
       System.out.println("Choose a game: ");
       game = scan.next();
       for (String str : games) {
-        status = str.equals(game);
+        status = str.equalsIgnoreCase(game);
         if (status) {break;}
       }
     }
-    if (game.equals("blackjack")) {
+    if (game.equalsIgnoreCase("blackjack")) {
       while (true) {
         System.out.println("Enter anything to continue or type STOP to stop");
         String word = scan.next();
-        if (!word.toLowerCase().equals("stop")) {
+        if (isInDebt() || word.equalsIgnoreCase("stop")) {
+          break;
+        }
+        else {
           int num = Blackjack.playBlackjack();
           if (num == 0) {
             money = money;
@@ -65,13 +68,19 @@ public class Casino {
             System.out.println("ERROR");
           }
         }
-        else {
-          break;
-        }
       }
     }
-    else if (game.equals("slot")) {
-      String text = scan.next();
+    else if (game.equalsIgnoreCase("slot")) {
+      while (true) {
+        System.out.println("Enter anything to continue or type STOP to stop");
+        String word = scan.next();
+        if (isInDebt() || word.equalsIgnoreCase("stop")) {
+          break;
+        }
+        else {
+          SlotMachine.playSlotMachine();
+        }
+      }
     }
 
   }

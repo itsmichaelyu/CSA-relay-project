@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Blackjack extends Casino{
 
 //  creates enum to store cards
-    public enum Cards {
+    private enum Cards {
         ACE(11), TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10), JACK(10), QUEEN(10), KING(10);
         private int value;
         private Cards(int value) {
@@ -17,7 +17,7 @@ public class Blackjack extends Casino{
       }
 
 //  creates array to store all the enums
-  private Cards[] cards = {Cards.ACE, Cards.TWO, Cards.THREE, Cards.FOUR, Cards.FIVE, Cards.SIX, Cards.SEVEN, Cards.EIGHT, Cards.NINE, Cards.TEN, Cards.JACK, Cards.QUEEN, Cards.KING };
+  private Cards[] cards = {Cards.ACE, Cards.TWO, Cards.THREE, Cards.FOUR, Cards.FIVE, Cards.SIX, Cards.SEVEN, Cards.EIGHT, Cards.NINE, Cards.TEN, Cards.JACK, Cards.QUEEN, Cards.KING};
 
 //    creates two arraylists to store dealer and player cards
   private ArrayList<Cards> dealerCards = new ArrayList<Cards>();
@@ -29,7 +29,7 @@ public class Blackjack extends Casino{
   private static Scanner scan = new Scanner(System.in);
 
 //  setup for blackjack
-  public Blackjack(int players) {
+  private Blackjack(int players) {
     this.players = players;
     for (int i = 0; i < players; i++){
         allPlayerCards.add(playerCards);
@@ -43,27 +43,27 @@ public class Blackjack extends Casino{
   }
 
 //  deals a card to the dealer
-  public void dealer() {
+  private void dealer() {
     dealerCards.add(cards[(int)(Math.random()*(cards.length))]);
   }
 
 //  deals a card to the player
-  public void hit(int playerNum) {
+  private void hit(int playerNum) {
     allPlayerCards.get(playerNum).add(cards[(int)(Math.random()*(cards.length))]);
   }
 
 //  returns an arraylist of all the player cards
-  public ArrayList<Cards> getPlayerCards(int playerNum) {
+  private ArrayList<Cards> getPlayerCards(int playerNum) {
     return allPlayerCards.get(playerNum);
   }
 
 //  returns an arraylist of all the dealers cards
-  public ArrayList<Cards> getDealerCards() {
+  private ArrayList<Cards> getDealerCards() {
     return dealerCards;
   }
 
 //  print a formatted output with player cards and score
-  public void printPlayerCards(int playerNum) {
+  private void printPlayerCards(int playerNum) {
     System.out.println("Your Cards: ");
     for (Blackjack.Cards i : getPlayerCards(playerNum)) {
       System.out.print(i + " ");
@@ -75,7 +75,7 @@ public class Blackjack extends Casino{
   }
 
 //  print a formatted output with player cards and score
-  public void printDealerCards() {
+  private void printDealerCards() {
     System.out.println("Dealer's Cards: ");
     for (Blackjack.Cards i : getDealerCards()) {
       System.out.print(i + " ");
@@ -87,7 +87,7 @@ public class Blackjack extends Casino{
   }
 
 //  calculates the dealers score and accounts for aces being 1 and 11 depending on situation
-  public int getDealerScore() {
+  private int getDealerScore() {
         int sum = 0;
         for (Cards i : dealerCards) {
             sum += i == Cards.ACE && sum + i.value() > 21 ? 1 : i.value();
@@ -96,7 +96,7 @@ public class Blackjack extends Casino{
     }
 
 //  calculates the player score and accounts for aces being 1 and 11 depending on situation
-  public int getPlayerScore(int playerNum) {
+  private int getPlayerScore(int playerNum) {
     int sum = 0;
     ArrayList<Cards> cards = allPlayerCards.get(playerNum);
     for (Cards i : cards) {
@@ -106,12 +106,12 @@ public class Blackjack extends Casino{
     }
 
 //  checks if player score is above 21
-  public boolean getPlayerBust(int playerNum) {
+  private boolean getPlayerBust(int playerNum) {
     return getPlayerScore(playerNum) > 21;
   }
 
 //  checks if dealer score is above 21
-  public boolean getDealerBust() {
+  private boolean getDealerBust() {
     return getDealerScore() > 21;
   }
 
@@ -120,7 +120,7 @@ public class Blackjack extends Casino{
   * 0 = dealer
   * 1.. = player 1...
   **/
-  public ArrayList<Integer> getWinner() {
+  private ArrayList<Integer> getWinner() {
     /**
     * -1 if bust
     * else it will be their val
@@ -181,12 +181,12 @@ public class Blackjack extends Casino{
     while (!blackjack.getPlayerBust(0)) {
       String hit = "";
 
-      while (!hit.equals("HIT") && !hit.equals("hit") && !hit.equals("STAND")&& !hit.equals("stand")) {
+      while (!hit.equalsIgnoreCase("HIT") && !hit.equalsIgnoreCase("hit") && !hit.equalsIgnoreCase("STAND")&& !hit.equalsIgnoreCase("stand")) {
         System.out.println("Would you like to HIT or STAND");
         hit = scan.next();
       }
 
-      if (hit.equals("HIT") || hit.equals("hit")) {
+      if (hit.equalsIgnoreCase("HIT") || hit.equalsIgnoreCase("hit")) {
         blackjack.hit(0);
         System.out.println("");
         blackjack.printPlayerCards(0);
