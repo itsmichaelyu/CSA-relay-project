@@ -18,7 +18,9 @@ class Main {
     SlotMachine slot = new SlotMachine();
     slot.spin();
     slot.draw();
-    System.out.println(slot.score());
-    System.out.println(slot.money(slot.score()));
+    int score = slot.score();
+    System.out.println(score);
+    System.out.println(slot.money(score));
+    //System.out.println(slot.money(slot.score()));
   }
 }

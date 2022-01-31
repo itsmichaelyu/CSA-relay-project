@@ -16,16 +16,7 @@ public class SlotMachine extends Casino {
     items.add("🟧");
     items.add("🟨");
     items.add("🆗");
-    items.add("🆒");
-    // items.add("orange ");
-    // items.add("yellow ");
-    // items.add("green ");
-    // items.add("blue ");
-    // items.add("purple ");
-    // items.add("ok ");  
-    // items.add("red ");
-    // items.add("white ");
-    // items.add("cool ");  
+    items.add("🆒"); 
   }
 
   public void spin() {
@@ -63,44 +54,39 @@ public class SlotMachine extends Casino {
     return maxRow;
   }
   
-  //I got the following to work, but if you want to use what you did or do something different, you can comment this out or change it (or delete it if you want to) whatever you want to do
-  // I'm not sure this works correctly?
-  // public int score(){
-  //   String color = visual.get(0);
-  //   int numberSame = 0;
-  //   for (int i = 1; i < visual.size(); i++){
-  //     if (color == visual.get(i)){
-  //       numberSame++;
-  //     }
-  //   }
-  //   color = visual.get(1);
-  //   for (int i = 2; i < visual.size(); i++){
-  //     if (color == visual.get(i)){
-  //       numberSame++;
-  //     }
-  //   }
-  //   color = visual.get(2);
-  //   for (int i = 3; i < visual.size(); i++){
-  //     if (color == visual.get(i)){
-  //       numberSame++;
-  //     }
-  //   }
-  //   color = visual.get(3);
-  //   if (color == visual.get(4)){
-  //     numberSame++;
-  //   }
-  //   return numberSame;
-  // }
+  /**I got the following to work, but if you want to use what you did or do something different, you can comment this out or change it (or delete it if you want to) whatever you want to do
+   I'm not sure this works correctly?
+   public int score(){
+     String color = visual.get(0);
+     int numberSame = 0;
+     for (int i = 1; i < visual.size(); i++){
+       if (color == visual.get(i)){
+         numberSame++;
+       }
+     }
+     color = visual.get(1);
+     for (int i = 2; i < visual.size(); i++){
+       if (color == visual.get(i)){
+         numberSame++;
+       }
+     }
+     color = visual.get(2);
+     for (int i = 3; i < visual.size(); i++){
+       if (color == visual.get(i)){
+         numberSame++;
+       }
+     }
+     color = visual.get(3);
+     if (color == visual.get(4)){
+       numberSame++;
+     }
+     return numberSame;
+  } **/
    
 
   public int money(int score) {
     // I was thinking that they only get points if they get at least 3 in a row, otherwise they will get 0
-    // if (score == 1){
-    //   return 1;
-    // }
-    // if (score == 2){
-    //   return 10;
-    // }
+    // oh ok, I was trying to do if they got 2 of the same, they would get a point, but if they got 2 groups of 2 different colors, they would get 2 points (ex: 2 greens and 2 oranges), and so on but i think yours works better, there's probably a more efficient way to do it than my way anyways
     if (score == 2) {
       return 100;
     }
@@ -117,7 +103,6 @@ public class SlotMachine extends Casino {
     visual.clear();
   }
   
-  // public void
 
 }
 
