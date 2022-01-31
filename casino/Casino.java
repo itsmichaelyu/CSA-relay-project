@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class Casino {
   protected static long money = 100;
-  private static long gamble = 0;
+  protected static long gamble = 0;
 
 //  list of games
-  private static String[] games = {"blackjack", "slot"};
+  private static String[] games = {"blackjack", "slot", "coin"};
 
   private static Scanner scan = new Scanner(System.in);
 
@@ -27,6 +27,7 @@ public class Casino {
       System.out.println("Please choose an amount between $0 and $100");
       gamble = scan.nextLong();
     }
+    System.out.println("");
   }
 
 //  allows the player to select the game
@@ -39,18 +40,23 @@ public class Casino {
       System.out.println(str);
     }
     while (!status) {
-      System.out.println("Choose a game: ");
+      System.out.println("\n" + "Choose a game: ");
       game = scan.next();
       for (String str : games) {
         status = str.equalsIgnoreCase(game);
         if (status) {break;}
       }
     }
+    System.out.println("");
     if (game.equalsIgnoreCase("blackjack")) {
       while (true) {
+        if (isInDebt()) {
+          break;
+        }
         System.out.println("Enter anything to continue or type STOP to stop");
         String word = scan.next();
-        if (isInDebt() || word.equalsIgnoreCase("stop")) {
+        System.out.println("");
+        if (word.equalsIgnoreCase("stop")) {
           break;
         }
         else {
@@ -67,18 +73,41 @@ public class Casino {
           else {
             System.out.println("ERROR");
           }
+          System.out.println("You now have $" + money + "\n");
         }
       }
     }
     else if (game.equalsIgnoreCase("slot")) {
       while (true) {
+        if (isInDebt()) {
+          break;
+        }
         System.out.println("Enter anything to continue or type STOP to stop");
         String word = scan.next();
-        if (isInDebt() || word.equalsIgnoreCase("stop")) {
+        System.out.println("");
+        if (word.equalsIgnoreCase("stop")) {
           break;
         }
         else {
           SlotMachine.playSlotMachine();
+          System.out.println("You now have $" + money + "\n");
+        }
+      }
+    }
+    else if (game.equalsIgnoreCase("coin")) {
+      while (true) {
+        if (isInDebt()) {
+          break;
+        }
+        System.out.println("Enter anything to continue or type STOP to stop");
+        String word = scan.next();
+        System.out.println("");
+        if (word.equalsIgnoreCase("stop")) {
+          break;
+        }
+        else {
+          CoinFlip.playCoinFlip();
+          System.out.println("You now have $" + money + "\n");
         }
       }
     }
