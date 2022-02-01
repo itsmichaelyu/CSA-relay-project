@@ -1,5 +1,6 @@
 package casino;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Casino {
@@ -18,15 +19,19 @@ public class Casino {
 
 //  sets the gamble
   protected static void setGamble() {
+    gamble = -1;
     System.out.println("You have $" + money);
 
     System.out.println("How much money would you like to gamble?");
-    gamble = scan.nextLong();
-
-  while (gamble > money || gamble < 0) {
-      System.out.println("Please choose an amount between $0 and $100");
-      gamble = scan.nextLong();
+    while (gamble > money || gamble < 5) {
+      try {
+        if (gamble != -1){ System.out.println("Please choose an amount between $5 and $" + money);}
+        gamble = Long.parseLong(scan.next());
+      } catch (Exception e) {
+        System.out.println("That's not a number! ¯\\_(ツ)_/¯");
+      }
     }
+
     System.out.println("");
   }
 
@@ -61,18 +66,26 @@ public class Casino {
         }
         else {
           int num = Blackjack.playBlackjack();
-          if (num == 0) {
-            money = money;
+          switch (num) {
+            case 0:
+              gamble = 0;
+              break;
+            case 1:
+              gamble *= -1;
+              break;
+            case 2:
+              gamble *= 1;
+              break;
+            case 3:
+             gamble *= 1.5;
+             break;
+            default:
+              System.out.println("You broke something! ¯\\_(ツ)_/¯");
+              gamble = -money;
+              break;
           }
-          else if (num == 1) {
-            money -= gamble;
-          }
-          else if (num == 2) {
-            money += gamble;
-          }
-          else {
-            System.out.println("ERROR");
-          }
+          money += gamble;
+          System.out.println("You got $" + gamble);
           System.out.println("You now have $" + money + "\n");
         }
       }

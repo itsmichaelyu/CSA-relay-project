@@ -142,7 +142,7 @@ public class SlotMachine extends Casino {
     while (status) {
       try {
         mult = Multiplier.valueOf(scanner.nextLine().toUpperCase(Locale.ROOT));
-        if (mult.getC() > money) {
+        if (mult.getC() > money && mult != Multiplier.EVERYTHING) {
           System.out.println("You don't have enough money gamble away!");
           status = true;
         }
@@ -156,7 +156,7 @@ public class SlotMachine extends Casino {
 
     slot.spin();
     slot.draw();
-    System.out.println("You won " + (long) slot.money(slot.score()) * mult.getM() + "!");
+    System.out.println("You won $" + (long) slot.money(slot.score()) * mult.getM() + "!");
 
     switch (mult) {
       case BABY:

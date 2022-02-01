@@ -115,6 +115,19 @@ public class Blackjack extends Casino{
     return getDealerScore() > 21;
   }
 
+  private boolean getPlayerBlackjack(int playerNum) {
+    return getPlayerScore(playerNum) == 21 && getPlayerCards(playerNum).size() == 2;
+  }
+
+  private boolean getDealerBlackjack() {
+    return getDealerScore() == 21 && getDealerCards().size() == 2;
+  }
+
+//  checks if player score is equal to 21
+  private boolean getPlayerBlackBlackjack(int playerNum) {
+    return getPlayerScore(playerNum) == 21 && getPlayerCards(playerNum).size() == 2;
+  }
+
   /**
   * returns list of all winner player numbers
   * 0 = dealer
@@ -163,8 +176,10 @@ public class Blackjack extends Casino{
    * runs blackjack
    * @return winner
    * -1 = UH OH
-   * 0 = dealer
-   * 1 = player 1
+   * 0 = push
+   * 1 = dealer
+   * 2 = player 1
+   * 3 = blackjack
    * etc
    */
   public static int playBlackjack() {
@@ -178,16 +193,19 @@ public class Blackjack extends Casino{
     System.out.println("");
     blackjack.printPlayerCards(0);
 
-    while (!blackjack.getPlayerBust(0)) {
+    while (!blackjack.getPlayerBust(0) && !blackjack.getPlayerBlackjack(0)) {
       String hit = "";
 
-      while (!hit.equalsIgnoreCase("HIT") && !hit.equalsIgnoreCase("hit") && !hit.equalsIgnoreCase("STAND")&& !hit.equalsIgnoreCase("stand")) {
+      while (!hit.equalsIgnoreCase("hit") && !hit.equalsIgnoreCase("stand")) {
         System.out.println("Would you like to HIT or STAND");
         hit = scan.next();
       }
 
-      if (hit.equalsIgnoreCase("HIT") || hit.equalsIgnoreCase("hit")) {
+      if (hit.equalsIgnoreCase("hit")) {
         blackjack.hit(0);
+        System.out.println("");
+        System.out.println("The house has: ");
+        System.out.println(blackjack.getDealerCards().get(0));
         System.out.println("");
         blackjack.printPlayerCards(0);
       }
@@ -224,6 +242,12 @@ public class Blackjack extends Casino{
     if (blackjack.getDealerBust()) {System.out.println("");
       System.out.println("DEALER BUST");
       winner = 2;
+    }
+    if (blackjack.getPlayerBlackjack(0) && !blackjack.getDealerBlackjack()) {
+      winner = 3;
+    }
+    else if (blackjack.getDealerBlackjack() && blackjack.getPlayerBlackjack(0)) {
+      winner = 0;
     }
     blackjack.printDealerCards();
     blackjack.printPlayerCards(0);
