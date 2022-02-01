@@ -67,22 +67,14 @@ public class Casino {
         else {
           int num = Blackjack.playBlackjack();
           switch (num) {
-            case 0:
-              gamble = 0;
-              break;
-            case 1:
-              gamble *= -1;
-              break;
-            case 2:
-              gamble *= 1;
-              break;
-            case 3:
-             gamble *= 1.5;
-             break;
-            default:
+            case 0 -> gamble = 0;
+            case 1 -> gamble *= -1;
+            case 2 -> gamble *= 1;
+            case 3 -> gamble *= 1.5;
+            default -> {
               System.out.println("You broke something! ¯\\_(ツ)_/¯");
               gamble = -money;
-              break;
+            }
           }
           money += gamble;
           System.out.println("You got $" + gamble);
@@ -90,7 +82,7 @@ public class Casino {
         }
       }
     }
-    else if (game.equalsIgnoreCase("slot")) {
+    else if (game.equalsIgnoreCase("slot")){
       while (true) {
         if (isInDebt()) {
           break;
